@@ -1,0 +1,32 @@
+/* app.css — 仅保留无法由 Tailwind 表达的平台特性与全局布局契约。
+ *
+ * 保留原因：
+ * 1. -webkit-app-region：Electron 窗口拖拽区域，Tailwind 无对应工具类。
+ * 2. .app-shell--onboarding：radial-gradient 页面级背景，Tailwind 渐变工具类无法精确表达。
+ */
+
+/* ── Electron 窗口拖拽区域 ────────────────────────────────────────── */
+
+.app-sidebar-titlebar {
+  -webkit-app-region: drag;
+}
+.app-sidebar-titlebar button {
+  -webkit-app-region: no-drag;
+}
+
+.app-chat-topbar {
+  -webkit-app-region: drag;
+}
+.app-chat-topbar button {
+  -webkit-app-region: no-drag;
+}
+
+.app-chat-topbar-action {
+  -webkit-app-region: no-drag;
+}
+
+/* ── Onboarding 页面级背景 ────────────────────────────────────────── */
+
+.app-shell--onboarding {
+  background: radial-gradient(circle at 85% -10%, #ffffff, transparent 34%), var(--background);
+}

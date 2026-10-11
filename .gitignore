@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+out/
+release/
+
+# Logs
+*.log
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Caches / temporary artifacts
+.eslintcache
+*.tsbuildinfo
+coverage/
+.scratch/
+
+# Environment / secrets
+.env
+.env.*
+!/.env.example
+
+settings.local.json
+
+.agents

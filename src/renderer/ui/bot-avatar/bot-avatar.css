@@ -1,0 +1,26 @@
+.bot-avatar {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+  line-height: 1;
+  font-weight: 650;
+}
+
+.bot-avatar.is-creating {
+  animation: bot-avatar-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes bot-avatar-pulse {
+  50% {
+    opacity: 0.62;
+    transform: scale(0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bot-avatar {
+    animation: none !important;
+  }
+}

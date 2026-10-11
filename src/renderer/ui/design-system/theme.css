@@ -1,0 +1,304 @@
+/* CloudAgentBot V2 Design System — daylight 主题 token（Tailwind CSS v4 入口）。
+ *
+ * 视觉语言：Grok 风格单色（黑白灰），唯一保留的功能色是 destructive 错误红。
+ * 消费方式为 shadcn/ui 模式（ADR-0005）：`@theme inline` 把 :root 自定义属性映射为
+ * Tailwind 主题变量，Primitive 用 Tailwind 工具类 + CVA + Radix 实现。
+ *
+ * 文件职责：
+ * - :root 与圆角 @theme 分别维护语义 token 和圆角的单一来源；
+ * - 不提供暗色主题、皮肤系统或可配置视觉引擎。
+ */
+
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-button-border: var(--button-border);
+  --color-button-border-hover: var(--button-border-hover);
+  --color-button-hover: var(--button-hover);
+  --color-button-active: var(--button-active);
+  --color-button-disabled: var(--button-disabled);
+  --color-button-primary-active: var(--button-primary-active);
+  --color-button-destructive-hover: var(--button-destructive-hover);
+  --color-button-destructive-active: var(--button-destructive-active);
+  --color-ring: var(--ring);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  --color-message-user: var(--message-user);
+  --color-message-user-foreground: var(--message-user-foreground);
+  --color-message-assistant: var(--message-assistant);
+  --color-message-assistant-foreground: var(--message-assistant-foreground);
+
+  /* Surface：shell / overlay / hover / subtle */
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-selected: var(--surface-selected);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+}
+
+/* §1.5：非 inline 映射让 rounded-* 与直接读取变量共享冻结圆角。 */
+@theme static {
+  --radius-sm: 6px;
+  --radius-md: 9px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+:root {
+  color-scheme: light;
+
+  /* 单色语义色对（亮色唯一）。 */
+  --background: #f7f7f7;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #ffffff;
+  --primary-hover: #262626;
+  --secondary: #f3f3f3;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f3f3f3;
+  --muted-foreground: #666666;
+  --destructive: #b42318;
+  --destructive-foreground: #ffffff;
+  --border: #e6e6e6;
+  --input: #d9d9d9;
+  --input-focus: #8c8c8c;
+
+  /* Button：次按钮白底描边；交互与禁用均保留可辨认的轮廓。 */
+  --button-border: #a3a3a3;
+  --button-border-hover: #737373;
+  --button-hover: #ededed;
+  --button-active: #dedede;
+  --button-disabled: #ededed;
+  --button-primary-active: #404040;
+  --button-destructive-hover: #951d14;
+  --button-destructive-active: #7a180f;
+  /* Grok 风格表单焦点描边：比正文略柔和，避免纯黑粗框的压迫感。 */
+  --ring: #343433;
+  --warning: #f2f2f2;
+  --warning-foreground: #0a0a0a;
+  --success: #f2f2f2;
+  --success-foreground: #0a0a0a;
+
+  /* 产品表面语义：用户消息为高对比近黑气泡（白字），助手消息为浅灰气泡。 */
+  --message-user: #0a0a0a;
+  --message-user-foreground: #ffffff;
+  --message-assistant: #f0f0f0;
+  --message-assistant-foreground: #0a0a0a;
+
+  /* Surface：shell 与工作区背景、浮层、hover/subtle 表面。 */
+  --surface: #fafafa;
+  --surface-raised: #ffffff;
+  --surface-overlay: rgb(252 252 252 / 76%);
+  --surface-hover: rgb(0 0 0 / 0.035);
+  --surface-subtle: rgb(0 0 0 / 0.035);
+  --surface-selected: rgb(0 0 0 / 0.055);
+
+  /* Foundation：控件尺寸。窄窗口主要动作 >= 44px。 */
+  /* 桌面端控件统一使用紧凑高度；响应式触控目标继续使用 --control-lg。 */
+  --control-xs: 28px;
+  --control-sm: 32px;
+  --control-md: var(--control-sm);
+  --control-lg: 44px;
+  --composer-min: 48px;
+
+  /* Foundation：阴影。卡片平面，浮层才有明显阴影。 */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.035);
+  --shadow-popover: 0 14px 40px rgb(0 0 0 / 0.1), 0 2px 8px rgb(0 0 0 / 0.04);
+
+  /* Foundation：动效。 */
+  --duration-fast: 120ms;
+  --duration-enter: 180ms;
+  --duration-sheet-enter: 240ms;
+  --duration-sheet-exit: 160ms;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+}
+
+@keyframes surface-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+
+@keyframes surface-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(1.012);
+  }
+}
+
+@keyframes surface-fade-out {
+  to {
+    opacity: 0;
+    transform: scale(1.006);
+  }
+}
+
+@keyframes sheet-right-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes sheet-right-out {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes sheet-left-in {
+  from {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes sheet-left-out {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes sheet-top-in {
+  from {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes sheet-top-out {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes sheet-bottom-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sheet-bottom-out {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes entry-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+}
+
+/* 基础重置（原 primitives.css 的基础部分）。 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--foreground);
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* 排版角色：页面/章节/正文/控件/辅助/说明。
+ * 必须留在 components 层：unlayered 规则会压过所有 layer，
+ * 使调用点的字号与行高 utilities 覆盖静默失效。
+ *
+ * 字号/行高/图标/控件高度只写 px：html 根字号是 14px，rem 尺寸类
+ * （text-sm、size-4、min-h-9、leading-5 等）会按 0.875 缩放成
+ * 10.5/12.25/17.5 一类非整数值，与角色配不成对。
+ * 调用点用角色类承载字号行高；确需一次性尺寸时写 text-[13px] 之类的 px 值。 */
+@layer components {
+  .type-page-title {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .type-section-title {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .type-body {
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 400;
+  }
+
+  .type-control {
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+
+  .type-supporting {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+  }
+
+  .type-caption {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 400;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

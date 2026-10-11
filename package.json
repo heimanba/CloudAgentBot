@@ -1,0 +1,82 @@
+{
+  "name": "openagentbot",
+  "private": true,
+  "version": "0.0.0",
+  "description": "CloudAgentBot — lightweight remote agent desktop client",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/main/index.js",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:live": "vitest run tests/live/ --no-file-parallelism",
+    "test:arch": "node scripts/check-architecture.mjs",
+    "package": "pnpm build && electron-builder",
+    "smoke:packaged": "node scripts/smoke-packaged.mjs",
+    "live:packaged": "node scripts/live-packaged.mjs",
+    "gate": "pnpm typecheck && pnpm lint && pnpm test && pnpm test:arch && pnpm package && pnpm smoke:packaged && node tests/acceptance/connection-removal/e2e.mjs",
+    "test:connection-removal": "pnpm build && node tests/acceptance/connection-removal/e2e.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^5.0.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "happy-dom": "^20.14.0",
+    "prettier": "^3.7.4",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.0",
+    "vite": "^7.3.6",
+    "vitest": "^4.0.15"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "esbuild"
+    ]
+  },
+  "dependencies": {
+    "@openagentpack/sdk": "0.8.0",
+    "@radix-ui/react-alert-dialog": "^1.1.23",
+    "@radix-ui/react-collapsible": "^1.1.20",
+    "@radix-ui/react-context-menu": "^2.3.7",
+    "@radix-ui/react-dialog": "^1.1.23",
+    "@radix-ui/react-dropdown-menu": "^2.1.24",
+    "@radix-ui/react-popover": "^1.1.23",
+    "@radix-ui/react-select": "^2.3.7",
+    "@radix-ui/react-slot": "^1.3.3",
+    "@radix-ui/react-tooltip": "^1.2.16",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.45.0",
+    "radix-ui": "^1.6.7",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.7.0",
+    "yaml": "^2.9.1",
+    "zod": "^4.5.4"
+  },
+  "packageManager": "pnpm@10.33.0"
+}

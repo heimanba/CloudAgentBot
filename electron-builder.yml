@@ -1,0 +1,16 @@
+appId: com.openagentbot.app
+productName: OpenAgentBot
+publish: null
+directories:
+  output: release
+files:
+  - dist/**
+  - package.json
+mac:
+  category: public.app-category.developer-tools
+  icon: build/icons/app.icns
+  target: dir
+linux:
+  icon: build/icons/app.png
+  target: dir
+npmRebuild: false
